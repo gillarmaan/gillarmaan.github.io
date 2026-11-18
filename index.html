@@ -34,55 +34,36 @@
   <body>
     <a class="skip-link" href="#command-input">Skip to command line</a>
 
-    <div class="desktop-bar" aria-hidden="true">
-      <div><span class="os-mark">AG</span><span>Portfolio OS</span></div>
-      <p>Terminal</p>
-      <div><span class="network-dot"></span><span id="desktop-clock">--:--</span></div>
-    </div>
-
     <main class="terminal-app" aria-label="Armaan Gill interactive terminal portfolio">
       <header class="window-titlebar">
         <div class="window-controls" aria-hidden="true">
           <span></span><span></span><span></span>
         </div>
-        <p>armaan@gill: ~/portfolio</p>
-        <div class="window-actions" aria-hidden="true"><span>—</span><span>□</span><span>×</span></div>
+        <p><strong>Armaan Gill</strong><span> — portfolio terminal</span></p>
+        <div class="title-status"><span aria-hidden="true"></span>online</div>
       </header>
 
       <div class="workspace">
-        <aside class="file-panel" aria-label="Portfolio files and quick commands">
-          <div class="profile-block">
-            <div class="avatar" aria-hidden="true">AG</div>
-            <div>
-              <strong>Armaan Gill</strong>
-              <span>Linux · Robotics · Systems</span>
-            </div>
+        <aside class="side-nav" aria-label="Portfolio navigation">
+          <div class="side-identity">
+            <span aria-hidden="true">AG</span>
+            <div><strong>portfolio</strong><small>~/main</small></div>
           </div>
-
-          <p class="panel-label">EXPLORER</p>
-          <div class="tree" role="tree" aria-label="Portfolio command tree">
-            <p class="tree-root">⌄ portfolio/</p>
-            <button type="button" data-command="about" role="treeitem"><span>◇</span>about.md</button>
-            <button type="button" data-command="skills" role="treeitem"><span>⚙</span>skills.conf</button>
-            <p class="tree-folder">⌄ projects/</p>
-            <button class="nested" type="button" data-command="project ugv" role="treeitem"><span>›_</span>ugv.log</button>
-            <button class="nested" type="button" data-command="project drone" role="treeitem"><span>›_</span>drone.log</button>
-            <button class="nested" type="button" data-command="project vr" role="treeitem"><span>›_</span>simsteering.log</button>
-            <button type="button" data-command="education" role="treeitem"><span>◇</span>education.txt</button>
-            <button type="button" data-command="contact" role="treeitem"><span>↗</span>contact.sh</button>
-          </div>
-
-          <div class="panel-note">
-            <span class="status-light" aria-hidden="true"></span>
-            <p><strong>ONLINE</strong><br />Melbourne, Australia</p>
-          </div>
+          <nav aria-label="Terminal commands">
+            <button type="button" data-command="help" data-nav><span>01</span><b>Help</b><code>help</code></button>
+            <button type="button" data-command="about" data-nav><span>02</span><b>About</b><code>about</code></button>
+            <button type="button" data-command="skills" data-nav><span>03</span><b>Skills</b><code>skills</code></button>
+            <button type="button" data-command="projects" data-nav><span>04</span><b>Projects</b><code>projects</code></button>
+            <button type="button" data-command="education" data-nav><span>05</span><b>Education</b><code>education</code></button>
+            <button type="button" data-command="contact" data-nav><span>06</span><b>Contact</b><code>contact</code></button>
+          </nav>
+          <p class="side-hint">↑↓ history<br />Tab autocomplete<br />Ctrl+L clear</p>
         </aside>
 
         <section class="terminal-pane" id="terminal-pane" aria-label="Terminal">
           <div class="terminal-scroll" id="terminal-scroll">
             <div class="terminal-output" id="terminal-output" aria-live="polite" aria-atomic="false">
-              <p class="boot-line"><span>[ OK ]</span> portfolio.service started</p>
-              <p class="boot-line"><span>[ OK ]</span> loaded Linux, robotics, and systems profile</p>
+              <p class="boot-line"><span>[ ready ]</span> portfolio loaded</p>
 
               <section class="welcome-output" aria-labelledby="welcome-name">
                 <p class="welcome-kicker">Welcome to</p>
@@ -92,14 +73,10 @@
                   Computer Science student at RMIT working across Linux environments,
                   containers, robotics, AI, telemetry, and root-cause diagnosis.
                 </p>
-                <div class="welcome-meta">
-                  <p><span>user</span> armaan@gill</p>
-                  <p><span>location</span> Melbourne, AU</p>
-                  <p><span>status</span> open to opportunities</p>
-                </div>
+                <p class="welcome-status">RMIT Computer Science <span>·</span> Melbourne, AU <span>·</span> Open to opportunities</p>
                 <p class="welcome-hint">
-                  Type <button type="button" data-command="help">help</button>,
-                  use the file explorer, or choose a command below.
+                  Choose a command from the sidebar, or type <button type="button" data-command="help">help</button>
+                  to explore through the shell.
                 </p>
               </section>
             </div>
@@ -122,23 +99,8 @@
             <p class="sr-only" id="command-help">Try help, about, skills, projects, education, contact, or clear.</p>
           </div>
 
-          <div class="quick-commands" aria-label="Quick commands">
-            <span>QUICK:</span>
-            <button type="button" data-command="help">help</button>
-            <button type="button" data-command="about">about</button>
-            <button type="button" data-command="skills">skills</button>
-            <button type="button" data-command="projects">projects</button>
-            <button type="button" data-command="contact">contact</button>
-            <button type="button" data-command="clear">clear</button>
-          </div>
         </section>
       </div>
-
-      <footer class="statusbar">
-        <p><span>portfolio-sh</span><span>main</span></p>
-        <p class="status-help">↑↓ history · Tab autocomplete · Ctrl+L clear</p>
-        <p><span id="command-count">0 commands</span><span>UTF-8</span></p>
-      </footer>
     </main>
 
     <noscript>

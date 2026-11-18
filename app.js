@@ -14,13 +14,14 @@
   let commandsRun = 0;
 
   const commandNames = [
-    "help", "about", "whoami", "skills", "projects", "project ugv",
+    "home", "help", "about", "whoami", "skills", "projects", "project ugv",
     "project drone", "project vr", "education", "contact", "pwd",
     "uname -a", "history", "theme green", "theme amber",
     "theme cyan", "date", "clear"
   ];
 
   const aliases = new Map([
+    ["home", "whoami"],
     ["cat about.md", "about"],
     ["cat skills.conf", "skills"],
     ["cat education.txt", "education"],
@@ -100,14 +101,33 @@
       '<div><dt>status</dt><dd class="online-text">● open to opportunities</dd></div>' +
       '</dl></section>',
     skills:
-      '<section class="output-card">' +
-      '<p class="output-path">/etc/skills.conf</p><h2>Working toolchain</h2>' +
-      '<div class="config-output">' +
-      '<div><p>[systems]</p><span>platforms=Linux, NVIDIA JetPack</span><span>diagnostics=logs, telemetry, fault isolation</span><span>shell=Bash</span></div>' +
-      '<div><p>[software]</p><span>languages=Python, C++, Java, SQL</span><span>version_control=Git</span><span>containers=Docker</span></div>' +
-      '<div><p>[robotics]</p><span>middleware=ROS 2, MAVROS, MAVLink</span><span>autonomy=ArduPilot, Isaac ROS</span><span>observability=Foxglove</span></div>' +
-      '<div><p>[infrastructure]</p><span>cloud=AWS</span><span>networking=Wi-Fi Direct, distributed systems</span><span>workflow=test, isolate, document, resolve</span></div>' +
-      '</div></section>',
+      '<section class="output-card skills-output">' +
+      '<p class="output-path">$ skills --list --verbose</p><h2>Technical capabilities</h2>' +
+      '<p class="skills-intro">Tools grouped by how I use them—not by arbitrary proficiency percentages.</p>' +
+      '<div class="skills-list" role="list">' +
+      '<div class="skill-row" role="listitem">' +
+      '<div class="skill-area"><span>01</span><strong>Linux systems</strong></div>' +
+      '<div class="skill-packages"><code>Linux</code><code>Bash</code><code>JetPack</code></div>' +
+      '<p>System logs, telemetry, shell workflows, and hardware/software fault isolation.</p>' +
+      '</div>' +
+      '<div class="skill-row" role="listitem">' +
+      '<div class="skill-area"><span>02</span><strong>Robotics</strong></div>' +
+      '<div class="skill-packages"><code>ROS 2</code><code>MAVROS</code><code>MAVLink</code><code>ArduPilot</code><code>Isaac ROS</code><code>Foxglove</code></div>' +
+      '<p>Autonomy stacks, distributed robot systems, telemetry, and observability.</p>' +
+      '</div>' +
+      '<div class="skill-row" role="listitem">' +
+      '<div class="skill-area"><span>03</span><strong>Development</strong></div>' +
+      '<div class="skill-packages"><code>Python</code><code>C++</code><code>Java</code><code>SQL</code><code>Git</code></div>' +
+      '<p>Application logic, systems integration, version control, and data workflows.</p>' +
+      '</div>' +
+      '<div class="skill-row" role="listitem">' +
+      '<div class="skill-area"><span>04</span><strong>Infrastructure</strong></div>' +
+      '<div class="skill-packages"><code>Docker</code><code>AWS</code><code>Wi-Fi Direct</code></div>' +
+      '<p>Reproducible environments, cloud fundamentals, and device communication.</p>' +
+      '</div>' +
+      '</div>' +
+      '<p class="skills-footnote"><span>[method]</span> test → isolate → correlate → document → resolve</p>' +
+      '</section>',
     projects:
       '<section class="output-card">' +
       '<p class="output-path">~/projects/</p><h2>Selected systems work</h2>' +
@@ -188,7 +208,9 @@
     history.push(trimmed);
     historyIndex = history.length;
     commandsRun += 1;
-    commandCount.textContent = commandsRun + " command" + (commandsRun === 1 ? "" : "s");
+    if (commandCount) {
+      commandCount.textContent = commandsRun + " command" + (commandsRun === 1 ? "" : "s");
+    }
 
     if (command === "clear") {
       output.innerHTML = "";
@@ -286,6 +308,13 @@
   document.addEventListener("click", (event) => {
     const commandButton = event.target.closest("[data-command]");
     if (commandButton) {
+      const isPrimaryNavigation = commandButton.hasAttribute("data-nav");
+
+      if (isPrimaryNavigation) {
+        document.querySelectorAll("[data-nav]").forEach((button) => button.removeAttribute("aria-current"));
+        commandButton.setAttribute("aria-current", "page");
+      }
+
       executeCommand(commandButton.dataset.command);
       input.focus({ preventScroll: true });
       return;
@@ -296,6 +325,7 @@
   });
 
   function updateClock() {
+    if (!clock) return;
     clock.textContent = new Intl.DateTimeFormat("en-AU", {
       hour: "2-digit",
       minute: "2-digit",
@@ -308,6 +338,8 @@
   } catch {
     setTheme("green");
   }
-  updateClock();
-  window.setInterval(updateClock, 30000);
+  if (clock) {
+    updateClock();
+    window.setInterval(updateClock, 30000);
+  }
 })();
